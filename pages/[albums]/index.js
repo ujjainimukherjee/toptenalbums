@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-unfetch'
-import Thumbnail from '../../components/Thumbnail';
+import { connect } from 'react-redux';
+import { addToTopTenList } from '../../redux/actions';
 import PropTypes from 'prop-types';
+import Thumbnail from '../../components/Thumbnail';
 import "../../styles.css"
 
 
 class Albums extends Component {
+	
 
 	static async getInitialProps({query}) {
 		try {
@@ -21,7 +24,6 @@ class Albums extends Component {
 	}
 
 	render(){
-
 		const renderAlbums = this.props.albums.data.map(item => {
 			return (
 				<li key={item.id}>
@@ -32,7 +34,7 @@ class Albums extends Component {
 						href={`/albums`}
 						as={`/albums/${item.id}`}
 					/>
-					<button className="add__to__list">
+					<button className="add__to__list" onClick={() => this.props.addToList(item.id, item.name, item.artist, item.imageSrc)}>
 						Add to List
 					</button>
 				</li>
@@ -54,8 +56,21 @@ class Albums extends Component {
 	}
 }
 
+const mapStateToProps = state => {
+	console.log('this state is ', state)
+    return {
+        toptenList: state.toptenList
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		addToList: (albumId, albumName, albumArtist, imageSrc) => dispatch(addToTopTenList(albumId, albumName, albumArtist, imageSrc))
+	}
+}
+
 Albums.propTypes = {
 	albums: PropTypes.object
 }
 
-export default Albums;
+export default connect(mapStateToProps, mapDispatchToProps)(Albums);
