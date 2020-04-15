@@ -11,7 +11,7 @@ For the above, I chose https://www.npmjs.com/package/node-spotify-api library be
 
 **Your app needs to call the Spotify "search" API endpoint with a query, any valid search term, and display a list of albums, paginated. Albums only**
 
-I have used React https://ant.design/ library to create an input button to let the users enter the query term. After that I am redirecting the user to the page which shows all the albums. The albums have been displayed using CSS grid features. Redirection is done using nextjs routing
+I have used React https://ant.design/ library to create an input button to let the users enter the query term. An example of query term can be - 'Classic Rock' or 'Michael Jackson'. After that I am redirecting the user to the page which shows all the albums. The albums have been displayed using CSS grid features. Redirection is done using nextjs routing
 
 **The user should be able to browse albums freely in a results view, click on one to view its details (hint hint, album endpoint) and pick one to add it to a list of Top 10 Albums of All Time!**
 
