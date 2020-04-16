@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import '../../styles.css';
 
 const Thumbnail = ({ imageUrl, caption, href, as, artist }) => {
     return (
