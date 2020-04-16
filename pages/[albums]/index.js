@@ -6,7 +6,6 @@ import { addToTopTenList, orderList, deleteItem } from '../../redux/actions';
 import PropTypes from 'prop-types';
 import Thumbnail from '../../components/Thumbnail';
 import SortableComponent from '../../components/SortableComponent';
-import '../../styles.css';
 
 class Albums extends Component {
     static async getInitialProps({ query }) {
