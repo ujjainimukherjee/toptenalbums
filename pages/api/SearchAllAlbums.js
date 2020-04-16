@@ -12,7 +12,7 @@ function formatResponse(data){
         artist: el.artists[0].name,
         tracks: el.total_tracks,
         id: el.id,
-        imageSrc: el.images[1].url,
+        images: [el.images[1], el.images[2]],
         name: el.name,
         link: el.href
       }

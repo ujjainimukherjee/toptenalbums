@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
-import Router from 'next/router'
-import { Input } from 'antd'
-import 'antd/dist/antd.css'
+import React, { Component } from 'react';
+import Router from 'next/router';
+import { Input } from 'antd';
+import 'antd/dist/antd.css';
 
 class TopTen extends Component {
     redirectToSearch(val) {
         Router.push({
             pathname: '/albums',
             query: { searchValue: val },
-        })
+        });
     }
 
     render() {
-        const { Search } = Input
+        const { Search } = Input;
         return (
             <div>
                 <Search
@@ -23,8 +23,8 @@ class TopTen extends Component {
                     aria-label="Please enter search value"
                 />
             </div>
-        )
+        );
     }
 }
 
-export default TopTen
+export default TopTen;

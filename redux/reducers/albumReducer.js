@@ -1,4 +1,5 @@
-import { ADD_TO_TOPTENLIST } from '../actions';
+import { ADD_TO_TOPTENLIST, ORDER_LIST, DELETE_ITEM } from '../actions';
+import {arrayMove} from 'react-sortable-hoc';
 
 const initialState = {
     topTenAlbums : []
@@ -6,6 +7,7 @@ const initialState = {
 
 const albumReducer = (state = initialState, action) => {
     let newAlbum
+    let filteredAlbums
     switch (action.type) {
         case ADD_TO_TOPTENLIST:
             newAlbum = {
@@ -15,6 +17,21 @@ const albumReducer = (state = initialState, action) => {
                 imageSrc: action.imageSrc
             }
             return {...state, topTenAlbums: state.topTenAlbums.concat(newAlbum)};
+        case ORDER_LIST:
+            return {
+                ...state,
+                topTenAlbums: arrayMove(state.topTenAlbums, action.oldIndex, action.newIndex)
+            }  
+            case DELETE_ITEM:
+                filteredAlbums = state.topTenAlbums.filter(el => {
+                    if (el.albumId !== action.id){
+                        return el
+                    }
+                })
+                return {
+                    ...state,
+                    topTenAlbums: filteredAlbums
+                }        
         default:
             return state;
     }
