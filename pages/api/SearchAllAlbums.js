@@ -2,7 +2,7 @@ const Spotify = require('node-spotify-api');
 
 /**
  * formatting data for use by UI
- * @param {*} data 
+ * @param {*} data
  */
 function formatResponse(data){
     let result = []
@@ -23,8 +23,8 @@ function formatResponse(data){
 
 export default (req, res) => {
   const spotify = new Spotify({
-    id: '467b0f6214aa48f9ab185396b7888ddf',
-    secret: '003823169c5c46fa9d18b1bd9b01a309'
+     id: process.env.SPOTIFY_CLIENT_ID,
+     secret: process.env.SPOTIFY_CLIENT_SECRET,
   });
 
   spotify

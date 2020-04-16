@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Router from 'next/router';
 import { Input } from 'antd';
-import 'antd/dist/antd.css';
+//import 'antd/dist/antd.css';
 
 class TopTen extends Component {
     redirectToSearch(val) {

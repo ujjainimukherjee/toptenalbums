@@ -42,7 +42,8 @@
     "react-reorder": "^3.0.0-alpha.7",
     "react-sortable-hoc": "^1.11.0",
     "react-table": "^7.0.4",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
