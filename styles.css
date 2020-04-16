@@ -35,3 +35,31 @@ body {
     justify-content: center; 
 } 
 
+.top__ten__wrapper{
+    display: flex;
+justify-content: center;
+align-items: center; 
+
+}
+
+.sortable__row {
+    cursor: pointer;
+}
+
+.delete__btn {
+    box-shadow: rgb(137, 149, 153) 3px 4px 0px 0px;
+    background: linear-gradient(rgb(237, 237, 237) 5%, rgb(186, 177, 186) 100%) rgb(237, 237, 237);
+    border-radius: 15px;
+    border: 1px solid rgb(214, 188, 214);
+    display: inline-block;
+    cursor: pointer;
+    color: rgb(58, 138, 158);
+    font-family: Arial;
+    font-size: 12px;
+    padding: 7px 25px;
+    text-decoration: none;
+    text-shadow: rgb(225, 226, 237) 0px 1px 0px;
+}
+
+
+
