@@ -16,12 +16,14 @@ const AlbumDetails = ({ album }) => {
                             }}
                         ></div>
                     </a>
-					<div className="desc__wrapper">
-                    <h2>{album.data.name}</h2>
-                    <p>{album.data.artists}</p>
-					<a id="play__button" href={`${album.data.href}`}>Play</a>
-					</div>
-					<style jsx>{`
+                    <div className="desc__wrapper">
+                        <h2>{album.data.name}</h2>
+                        <p>{album.data.artists}</p>
+                        <a id="play__button" href={`${album.data.href}`}>
+                            Play
+                        </a>
+                    </div>
+                    <style jsx>{`
                         .show-details__poster {
                             height: 300px;
                             width: 300px;
@@ -35,7 +37,6 @@ const AlbumDetails = ({ album }) => {
 };
 
 AlbumDetails.getInitialProps = async ({ query }) => {
-    console.log('getting initial props of album details');
     try {
         const res = await fetch(
             `http://localhost:3000/api/album/${query.albumId}`
