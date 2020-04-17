@@ -52,3 +52,5 @@ const nextConfig = {
         SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
     },
   }
+const withCSS = require('@zeit/next-css')
+module.exports = withCSS({})

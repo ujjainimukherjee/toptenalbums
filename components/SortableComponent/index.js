@@ -15,7 +15,8 @@ const SortableItem = SortableElement((props) => {
                 {props.value.albumName} by {props.value.albumArtist}
             </TableCell>
             <TableCell align="right">
-                <button className="delete__btn"
+                <button
+                    className="delete__btn"
                     onClick={() => props.onDelete(props.value.albumId)}
                 >
                     Del
