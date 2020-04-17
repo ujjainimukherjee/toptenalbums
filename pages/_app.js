@@ -1,23 +1,30 @@
 import App from 'next/app';
 import { Provider } from 'react-redux';
 import React from 'react';
-import withRedux from "next-redux-wrapper";
+import withRedux from 'next-redux-wrapper';
 import store from '../redux/store';
-import '../styles/global.css'
+import Header from '../components/Header';
+import '../styles/global.css';
 
 class MyApp extends App {
-
-    static async getInitialProps({Component, ctx}) {
-        const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
-        return {pageProps: pageProps};
+    static async getInitialProps({ Component, ctx }) {
+        const pageProps = Component.getInitialProps
+            ? await Component.getInitialProps(ctx)
+            : {};
+        return { pageProps: pageProps };
     }
 
     render() {
-        const {Component, pageProps, store} = this.props;
+        const { Component, pageProps, store } = this.props;
         return (
-            <Provider store={store}>
-                <Component {...pageProps}/>
-            </Provider>
+            <>
+                <Header />
+                <div id="pageContent" role="main">
+                    <Provider store={store}>
+                        <Component {...pageProps} />
+                    </Provider>
+                </div>
+            </>
         );
     }
 }
