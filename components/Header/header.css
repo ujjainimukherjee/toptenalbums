@@ -1,0 +1,50 @@
+.header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    top: 0;
+    width: 100%;
+    position: fixed;  
+}
+
+.header  a {
+   font-size: 14px;
+   color: white;
+   font-weight: 300;
+   letter-spacing: 2px;
+   text-decoration: none;
+   padding: 20px 5px;
+   display: inline-block;
+   width: 100%;
+   text-align: center;
+}
+ 
+
+.header > ul {
+    list-style-type: none;
+    display: flex;
+    width:30%;
+}
+
+.header > ul > li {
+    flex: 1;
+}
+
+@media all and (max-width: 1000px) {
+    .header ul {
+       flex-wrap: wrap;
+    }
+    
+    .header li {
+       flex: 1 1 50%;
+    }
+ }
+ 
+ @media all and (max-width: 480px) {
+    .header li {
+       flex-basis: 100%;
+    }
+ }

@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import { addToTopTenList, orderList, deleteItem } from '../../redux/actions';
 import PropTypes from 'prop-types';
 import Thumbnail from '../../components/Thumbnail';
-import SortableComponent from '../../components/SortableComponent';
 
 class Albums extends Component {
     static async getInitialProps({ query }) {
@@ -23,8 +22,6 @@ class Albums extends Component {
     }
 
     render() {
-        const { toptenList } = this.props;
-        const { topTenAlbums } = toptenList;
         const renderAlbums = this.props.albums.data.map((item) => {
             return (
                 <li key={item.id}>
@@ -32,7 +29,7 @@ class Albums extends Component {
                         imageUrl={item.images[0].url}
                         caption={item.name}
                         artist={item.artist}
-                        href={`/albums`}
+                        href={`/albums/${item.id}`}
                         as={`/albums/${item.id}`}
                     />
                     <button
@@ -53,15 +50,8 @@ class Albums extends Component {
         });
 
         return (
-            <Grid container spacing={3}>
-                <Grid item xs={6}>
-                    <SortableComponent
-                        data={topTenAlbums}
-                        onSortEnd={this.props.orderList}
-                        onDelete={this.props.onDelete}
-                    />
-                </Grid>
-                <Grid item xs={6}>
+            <Grid className="search__results__wrapper" container spacing={3}>
+                <Grid item xs={12}>
                     <div className="albums__list">
                         <header>
                             <div className="page__desc">
@@ -75,12 +65,6 @@ class Albums extends Component {
         );
     }
 }
-
-const mapStateToProps = (state) => {
-    return {
-        toptenList: state.toptenList,
-    };
-};
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -101,4 +85,4 @@ Albums.propTypes = {
     albums: PropTypes.object,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Albums);
+export default connect(null, mapDispatchToProps)(Albums);
