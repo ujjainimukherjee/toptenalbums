@@ -1,8 +1,7 @@
-const Spotify = require('node-spotify-api');
 
 /**
  * formatting data for use by UI
- * @param {*} data 
+ * @param {*} data
  */
 function formatResponse(data){
     let result = []
@@ -21,19 +20,17 @@ function formatResponse(data){
   return result
 }
 
-export default (req, res) => {
-  const spotify = new Spotify({
-    id: '467b0f6214aa48f9ab185396b7888ddf',
-    secret: '003823169c5c46fa9d18b1bd9b01a309'
-  });
+export default async (req, res) => {
+    const {spotify} = await require('../../utils/spotify');
 
-  spotify
-    .search({ type: 'album', query: req.query.search })
-    .then (response => {
-      res.statusCode = 200
-      res.setHeader('Content-Type', 'application/json')
-      res.send(JSON.stringify({ data:formatResponse(response)}))
-    }).catch(err => {
-      console.log(err);
-    })
+    spotify.searchAlbums(req.query.search, {offset:0, limit:30})
+    .then(function(data) {
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'application/json')
+        res.send(JSON.stringify({ data:formatResponse(data.body)}))
+        res.end()
+    }, function(err) {
+        console.error(err);
+        res.statusCode = 400
+    });
 }

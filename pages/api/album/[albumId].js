@@ -1,4 +1,3 @@
-const Spotify = require('node-spotify-api');
 
 function formatResponse(data) {
     return {
@@ -10,25 +9,22 @@ function formatResponse(data) {
     };
 }
 
-export default (req, res) => {
+export default async (req, res) => {
     const {
         query: { albumId },
     } = req;
 
-    const spotify = new Spotify({
-        id: '467b0f6214aa48f9ab185396b7888ddf',
-        secret: '003823169c5c46fa9d18b1bd9b01a309',
+    const {spotify} = await require('../../../utils/spotify')
+
+    spotify.getAlbum(albumId).then(function(data) {
+        console.log(data)
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'application/json')
+        res.send(JSON.stringify({ data:formatResponse(data.body)}))
+        res.end();
+    }, function(err) {
+        console.error(err);
+        res.statusCode = 400
     });
 
-    spotify
-        .request(`https://api.spotify.com/v1/albums/${albumId}`)
-        .then((data) => {
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/json');
-            res.send(JSON.stringify({ data: formatResponse(data) }));
-            res.end();
-        })
-        .catch((err) => {
-            console.error('Error occurred: ' + err);
-        });
 };
