@@ -6,6 +6,28 @@ import store from '../redux/store';
 import Header from '../components/Header';
 import '../styles/global.css';
 
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from '../redux/sagas';
+import rootReducer from '../redux/reducers/rootReducer';
+import { createStore, applyMiddleware } from 'redux';
+const saga = createSagaMiddleware();
+// const store = createStore(
+//   rootReducer,
+//   undefined,
+//   applyMiddleware(saga)
+// );
+// saga.run(rootSaga);
+
+const makeStore = initialState => {
+    const store = createStore(
+      rootReducer,
+      initialState,
+      applyMiddleware(saga)
+    );
+    saga.run(rootSaga);
+    return store;
+  };
+
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }) {
         const pageProps = Component.getInitialProps
@@ -29,6 +51,6 @@ class MyApp extends App {
     }
 }
 
-const makeStore = () => store;
+// const makeStore = () => store;
 
 export default withRedux(makeStore)(MyApp);

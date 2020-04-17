@@ -1,3 +1,10 @@
+/** Notes:
+ * The top tem albums list should be server side rendered, i.e,
+ * loaded from inside 'getInitialProps'
+ * but load the data from inside 'componentDidMount'
+ * bcz I was having issues with the HTML being rendered by the browser * 
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { orderList, deleteItem, setInitialState } from '../redux/actions';
@@ -8,11 +15,12 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            toptenList: this.props.albums,
+            toptenList: this.props.albums
         };
     }
 
     componentDidMount() {
+        // initial data needs to be rendered from the server instead of from componentDidMount
         this.props.setInitialState(albums);
     }
 
