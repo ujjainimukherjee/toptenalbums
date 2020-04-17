@@ -1,6 +1,7 @@
 const withSass = require('@zeit/next-sass')
 const withPlugins = require('next-compose-plugins');
 const withCss = require("@zeit/next-css")
+require('dotenv').config()
 
 const nextConfig = {
     webpack: (config, { isServer }) => {
@@ -18,7 +19,7 @@ const nextConfig = {
           },
           ...(typeof origExternals[0] === 'function' ? [] : origExternals),
         ];
-  
+
         config.module.rules.unshift({
           test: antStyles,
           use: 'null-loader',
@@ -27,8 +28,8 @@ const nextConfig = {
       return config;
     },
   };
-  
-  module.exports = withPlugins(
+
+  /*module.exports = withPlugins(
     [
       [withCss],
       [
@@ -42,4 +43,12 @@ const nextConfig = {
       ],
     ],
     nextConfig,
-  );
+  );*/
+
+  module.exports = {
+    env: {
+        // Reference a variable that was defined in the .env file and make it available at Build Time
+        SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
+        SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
+    },
+  }
