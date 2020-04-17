@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import SortableComponent from '../../components/SortableComponent';
 
@@ -8,7 +8,7 @@ const TopTen = (props) => {
             <Grid item xs={12}>
                 <SortableComponent
                     data={props.data.topTenAlbums}
-                    onSortEnd={props.orderList}
+                    onSortEnd={props.onSortEnd}
                     onDelete={props.onDelete}
                 />
             </Grid>

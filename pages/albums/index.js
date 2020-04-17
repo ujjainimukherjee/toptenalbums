@@ -48,6 +48,10 @@ class Albums extends Component {
                 </li>
             );
         });
+        //TODO: change this to a dialog box
+        if (this.props.error) {
+            // alert(this.props.error)
+        }
 
         return (
             <Grid className="search__results__wrapper" container spacing={3}>
@@ -66,18 +70,18 @@ class Albums extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        error: state.toptenList.error
+    };
+};
+
 const mapDispatchToProps = (dispatch) => {
     return {
         addToList: (albumId, albumName, albumArtist, imageSrc) =>
             dispatch(
                 addToTopTenList(albumId, albumName, albumArtist, imageSrc)
             ),
-        orderList: ({ oldIndex, newIndex }) => {
-            dispatch(orderList(oldIndex, newIndex));
-        },
-        onDelete: (id) => {
-            dispatch(deleteItem(id));
-        },
     };
 };
 
@@ -85,4 +89,4 @@ Albums.propTypes = {
     albums: PropTypes.object,
 };
 
-export default connect(null, mapDispatchToProps)(Albums);
+export default connect(mapStateToProps, mapDispatchToProps)(Albums);

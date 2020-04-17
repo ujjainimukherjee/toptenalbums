@@ -8,7 +8,7 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            toptenList: this.props.albums
+            toptenList: this.props.albums,
         };
     }
 
@@ -35,7 +35,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setInitialState: (albums) => {
+        setInitialState: albums => {
             dispatch(setInitialState(albums));
         },
         orderList: ({ oldIndex, newIndex }) => {
@@ -46,6 +46,5 @@ const mapDispatchToProps = (dispatch) => {
         },
     };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
