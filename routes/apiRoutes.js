@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const request = require('superagent');
-const async = require('async');
+//const request = require('superagent');
+//const async = require('async');
 
 router.get('/test', (req, res) => {
     res.status(200).json({test: 'ok'});
@@ -55,8 +55,8 @@ router.get('/album/:id', async (req, res) => {
 
     const {spotify} = await require('../utils/spotify')
 
-    console.log('album id ', req.params.id)
-    console.log('access token for album', spotify.getAccessToken())
+    //console.log('album id ', req.params.id)
+    //console.log('access token for album', spotify.getAccessToken())
 
     spotify.getAlbum(req.params.id).then(function(data) {
         res.statusCode = 200
