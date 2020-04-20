@@ -13,7 +13,6 @@ import Grid from '@material-ui/core/Grid';
 import ReactPaginate from 'react-paginate';
 import { addToTopTenList } from '../../redux/actions';
 import Thumbnail from '../../components/Thumbnail';
-import './albums.css';
 
 class Albums extends Component {
     static async getInitialProps({ query, pathname }) {
