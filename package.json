@@ -43,7 +43,6 @@
     "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-infinite-scroll-component": "^5.0.4",
     "react-paginate": "^6.3.2",
     "react-redux": "^7.2.0",
     "react-reorder": "^3.0.0-alpha.7",
@@ -53,6 +52,8 @@
     "spotify-web-api-node": "4.0.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.5.0",
+    "@testing-library/react": "^10.0.2",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.3.0",
@@ -68,7 +69,8 @@
     "lint-staged": "^10.1.3",
     "nodemon": "1.11.0",
     "prettier": "^2.0.4",
-    "pretty-quick": "^2.0.1"
+    "pretty-quick": "^2.0.1",
+    "react-test-renderer": "^16.13.1"
   },
   "jest": {
     "collectCoverage": true,
