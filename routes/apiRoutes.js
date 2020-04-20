@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
 
 /**
  * formatting search all albums data for use by UI
@@ -83,6 +84,64 @@ router.get('/album/:id', async (req, res) => {
             console.error(err);
             res.statusCode = 400;
         });
+});
+
+router.get('/toptenalbums', async (req, res) => {
+    // read the file & return
+    const rawdata = fs.readFileSync('../db/toptenalbums.json');
+    let toptenalbums = JSON.parse(rawdata);
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({toptenalbums}));
+    res.end();
+});
+
+router.post('/toptenalbums', async (req, res) => {
+   // append to the file & sort the file
+   let rawdata = fs.readFileSync('../db/toptenalbums.json');
+   let toptenalbums = JSON.parse(rawdata);
+   if (toptenalbums.length >= 10) {
+       res.status(400).send({message: 'Only ten albums allowed'})
+       return
+   }
+
+   let anAlbum = req.body
+   anAlbum["order"] = toptenalbums.length + 1
+   toptenalbums.push(anAlbum)
+   console.log(toptenalbums)
+   toptenalbums.sort((a, b) => parseInt(a.order) - parseInt(b.order))
+   console.log(toptenalbums)
+
+   rawdata = JSON.stringify(toptenalbums, null, 4);
+   fs.writeFileSync('../db/toptenalbums.json', rawdata)
+
+   res.status(200).send({message: 'Add Success'})
+});
+
+router.delete('/toptenalbums/:id', async (req, res) => {
+    //
+    const rawdata = fs.readFileSync('../db/toptenalbums.json');
+    let toptenalbums = JSON.parse(rawdata);
+    if (toptenalbums.length <= 0) {
+        res.status(400).send({message: 'Empty top ten list'})
+        return
+    }
+
+    let filteredAlbums = topTenAlbums.filter((el) => {
+        if (el.albumId !== req.params.id) {
+            return el;
+        }
+    });
+
+    // change the order of the rest of the elements
+    filteredAlbums.forEach( (el, idx) => {
+	      el['order'] = idx + 1
+    })
+
+    let rawdata = JSON.stringify(filteredAlbums, null, 4);
+    fs.writeFileSync('../db/toptenalbums.json', rawdata)
+
+    res.status(200).send({message: 'Delete Success'})
 });
 
 module.exports = router;
