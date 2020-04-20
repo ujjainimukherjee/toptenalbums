@@ -1,8 +1,16 @@
-var SpotifyWebApi = require('spotify-web-api-node');
+var SpotifyWebApi = require('spotify-web-api-node')
+const NodeCache = require( "node-cache" )
+var myCache = new NodeCache()
 
 async function initialize(spotify) {
-    const result = await spotify.clientCredentialsGrant()
-    spotify.setAccessToken(result.body.access_token)
+    var accessToken = myCache.get("spotifyAccessToken")
+    if (accessToken === undefined) {
+        const result = await spotify.clientCredentialsGrant()
+        accessToken = result.body.access_token
+        console.log("Access token granted ", accessToken)
+        const success = myCache.set("spotifyAccessToken", accessToken, 50*60)
+    }
+    spotify.setAccessToken(accessToken)
 }
 
 const spotify = new SpotifyWebApi({
