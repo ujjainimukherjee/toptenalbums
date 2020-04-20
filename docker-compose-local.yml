@@ -1,0 +1,16 @@
+version: '3.5'
+services:
+  toptenalbums:
+    build:
+      context: ./
+    container_name: toptenalbums
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app/
+    env_file: .env
+    environment:
+      - SPOTIFY_CLIENT_ID=$SPOTIFY_CLIENT_ID
+      - SPOTIFY_CLIENT_SECRET=$SPOTIFY_CLIENT_SECRET
+    command: >
+      sh -c "cd /app && npm run express"
