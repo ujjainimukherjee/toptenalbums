@@ -120,7 +120,7 @@ router.post('/toptenalbums', async (req, res) => {
 
 router.delete('/toptenalbums/:id', async (req, res) => {
     //
-    const rawdata = fs.readFileSync('../db/toptenalbums.json');
+    let rawdata = fs.readFileSync('../db/toptenalbums.json');
     let toptenalbums = JSON.parse(rawdata);
     if (toptenalbums.length <= 0) {
         res.status(400).send({message: 'Empty top ten list'})
@@ -138,7 +138,7 @@ router.delete('/toptenalbums/:id', async (req, res) => {
 	      el['order'] = idx + 1
     })
 
-    let rawdata = JSON.stringify(filteredAlbums, null, 4);
+    rawdata = JSON.stringify(filteredAlbums, null, 4);
     fs.writeFileSync('../db/toptenalbums.json', rawdata)
 
     res.status(200).send({message: 'Delete Success'})
