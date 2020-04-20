@@ -1,47 +1,39 @@
 const express = require('express');
 const router = express.Router();
 
-//const request = require('superagent');
-//const async = require('async');
-
-router.get('/test', (req, res) => {
-    res.status(200).json({test: 'ok'});
-});
-
-function formatSearchResponse(data){
-    let result = []
+/**
+ * formatting search all albums data for use by UI
+ * @param {*} data
+ */
+const formatSearchResponse = (data) => {
+    let result = [];
     const items = data.albums.items;
-    items.forEach(el => {
-      const album = {
-        artist: el.artists[0].name,
-        tracks: el.total_tracks,
-        id: el.id,
-        images: [el.images[1], el.images[2]],
-        name: el.name,
-        link: el.href
-      }
-      result.push(album)
-    })
-  return result
-}
-
-router.get('/SearchAllAlbums', async (req, res) => {
-    const {spotify} = await require('../utils/spotify');
-
-    console.log('access token for search', spotify.getAccessToken())
-    spotify.searchAlbums(req.query.search, {offset:0, limit:30})
-    .then(function(data) {
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'application/json')
-        res.send(JSON.stringify({ data:formatSearchResponse(data.body)}))
-        res.end()
-    }, function(err) {
-        console.error(err);
-        res.statusCode = 400
+    items.forEach((el) => {
+        const album = {
+            artist: el.artists[0].name,
+            tracks: el.total_tracks,
+            id: el.id,
+            images: [el.images[1], el.images[2]],
+            name: el.name,
+            link: el.href,
+        };
+        result.push(album);
     });
-});
+    return {
+        totalCount: data.albums.total,
+        pageCount: Math.floor(data.albums.total/30),
+        currentPage: 1,
+        perPage: 30,
+        albums: result
 
-function formatAlbumResponse(data) {
+    };
+};
+
+/**
+ * format individual album response
+ * @param {*} data 
+ */
+const  formatAlbumResponse = data => {
     return {
         artists: data.artists[0].name,
         href: data.external_urls.spotify,
@@ -51,23 +43,43 @@ function formatAlbumResponse(data) {
     };
 }
 
+/**
+ * get data for all albums
+ */
+router.get('/SearchAllAlbums', async (req, res) => {
+    const { spotify } = await require('../utils/spotify');
+    const { search, page, limit } = req.query;
+    const offset = page === 'undefined' ? 30 : page * 30;
+    spotify
+        .searchAlbums(search, { offset: offset, limit: limit })
+        .then(data => {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify({ data: formatSearchResponse(data.body) }));
+            res.end();
+        })
+        .catch(err => {
+            console.error(err);
+            res.statusCode = 400;
+        });
+});
+
+
+/**
+ * get data for one album only
+ */
 router.get('/album/:id', async (req, res) => {
-
-    const {spotify} = await require('../utils/spotify')
-
-    //console.log('album id ', req.params.id)
-    //console.log('access token for album', spotify.getAccessToken())
-
-    spotify.getAlbum(req.params.id).then(function(data) {
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'application/json')
-        res.send(JSON.stringify({ data:formatAlbumResponse(data.body)}))
-        res.end();
-    }, function(err) {
-        console.error(err);
-        res.statusCode = 400
-    });
-
+    const { spotify } = await require('../utils/spotify');
+    spotify.getAlbum(req.params.id).then( data => {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify({ data: formatAlbumResponse(data.body) }));
+            res.end();
+        })
+        .catch(err => {
+            console.error(err);
+            res.statusCode = 400;
+        });
 });
 
 module.exports = router;
