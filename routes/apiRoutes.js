@@ -19,21 +19,22 @@ const formatSearchResponse = (data) => {
         };
         result.push(album);
     });
+    if (data.albums.total > 2000) {
+        data.albums.total = 2000;
+    }
     return {
-        totalCount: data.albums.total,
-        pageCount: Math.floor(data.albums.total/30),
+        pageCount: Math.floor(data.albums.total / 30),
         currentPage: 1,
         perPage: 30,
-        albums: result
-
+        albums: result,
     };
 };
 
 /**
  * format individual album response
- * @param {*} data 
+ * @param {*} data
  */
-const  formatAlbumResponse = data => {
+const formatAlbumResponse = (data) => {
     return {
         artists: data.artists[0].name,
         href: data.external_urls.spotify,
@@ -41,7 +42,7 @@ const  formatAlbumResponse = data => {
         label: data.label,
         name: data.name,
     };
-}
+};
 
 /**
  * get data for all albums
@@ -49,34 +50,36 @@ const  formatAlbumResponse = data => {
 router.get('/SearchAllAlbums', async (req, res) => {
     const { spotify } = await require('../utils/spotify');
     const { search, page, limit } = req.query;
-    const offset = page === 'undefined' ? 30 : page * 30;
+    const offset = page === 'undefined' ? 0 : (page - 1) * 30;
+
     spotify
         .searchAlbums(search, { offset: offset, limit: limit })
-        .then(data => {
+        .then((data) => {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify({ data: formatSearchResponse(data.body) }));
             res.end();
         })
-        .catch(err => {
+        .catch((err) => {
             console.error(err);
             res.statusCode = 400;
         });
 });
-
 
 /**
  * get data for one album only
  */
 router.get('/album/:id', async (req, res) => {
     const { spotify } = await require('../utils/spotify');
-    spotify.getAlbum(req.params.id).then( data => {
+    spotify
+        .getAlbum(req.params.id)
+        .then((data) => {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify({ data: formatAlbumResponse(data.body) }));
             res.end();
         })
-        .catch(err => {
+        .catch((err) => {
             console.error(err);
             res.statusCode = 400;
         });
