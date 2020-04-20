@@ -88,17 +88,17 @@ router.get('/album/:id', async (req, res) => {
 
 router.get('/toptenalbums', async (req, res) => {
     // read the file & return
-    const rawdata = fs.readFileSync('../db/toptenalbums.json');
+    const rawdata = fs.readFileSync('./db/toptenalbums.json');
     let toptenalbums = JSON.parse(rawdata);
-    res.statusCode = 200;
+
     res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({toptenalbums}));
+    res.status(200).send(JSON.stringify({toptenalbums}));
     res.end();
 });
 
 router.post('/toptenalbums', async (req, res) => {
    // append to the file & sort the file
-   let rawdata = fs.readFileSync('../db/toptenalbums.json');
+   let rawdata = fs.readFileSync('./db/toptenalbums.json');
    let toptenalbums = JSON.parse(rawdata);
    if (toptenalbums.length >= 10) {
        res.status(400).send({message: 'Only ten albums allowed'})
@@ -109,13 +109,13 @@ router.post('/toptenalbums', async (req, res) => {
    anAlbum["order"] = toptenalbums.length + 1
    toptenalbums.push(anAlbum)
    console.log(toptenalbums)
-   toptenalbums.sort((a, b) => parseInt(a.order) - parseInt(b.order))
-   console.log(toptenalbums)
+   //toptenalbums.sort((a, b) => parseInt(a.order) - parseInt(b.order))
+   //console.log(toptenalbums)
 
    rawdata = JSON.stringify(toptenalbums, null, 4);
-   fs.writeFileSync('../db/toptenalbums.json', rawdata)
+   fs.writeFileSync('./db/toptenalbums.json', rawdata)
 
-   res.status(200).send({message: 'Add Success'})
+   res.status(200).json(req.body)
 });
 
 router.delete('/toptenalbums/:id', async (req, res) => {
@@ -139,9 +139,9 @@ router.delete('/toptenalbums/:id', async (req, res) => {
     })
 
     rawdata = JSON.stringify(filteredAlbums, null, 4);
-    fs.writeFileSync('../db/toptenalbums.json', rawdata)
+    fs.writeFileSync('./db/toptenalbums.json', rawdata)
 
-    res.status(200).send({message: 'Delete Success'})
+    res.status(200).json({albumId: req.params.id})
 });
 
 module.exports = router;
