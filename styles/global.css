@@ -147,3 +147,31 @@ form.search__form::after {
     clear: both;
     display: table;
 }
+
+/** Styles for pagination **/
+.pagination {
+    display: flex;
+    list-style: none;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: fit-content;
+    align-items: center;
+    padding: 0;
+    margin-top: 40px;
+}
+.pagination li a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 10px;
+    cursor: pointer;
+}
+.pagination li a:hover {
+    text-decoration: underline;
+}
+.pagination li.active a {
+    font-weight: bold;
+    text-decoration: underline;
+    pointer-events: none;
+}
