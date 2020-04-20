@@ -96,6 +96,9 @@ router.get('/toptenalbums', async (req, res) => {
     res.end();
 });
 
+/**
+ * To add an album to top ten list
+ */
 router.post('/toptenalbums', async (req, res) => {
    // append to the file & sort the file
    let rawdata = fs.readFileSync('./db/toptenalbums.json');
@@ -109,13 +112,13 @@ router.post('/toptenalbums', async (req, res) => {
    anAlbum["order"] = toptenalbums.length + 1
    toptenalbums.push(anAlbum)
    console.log(toptenalbums)
-   toptenalbums.sort((a, b) => parseInt(a.order) - parseInt(b.order))
+//    toptenalbums.sort((a, b) => parseInt(a.order) - parseInt(b.order))
    console.log(toptenalbums)
 
    rawdata = JSON.stringify(toptenalbums, null, 4);
    fs.writeFileSync('./db/toptenalbums.json', rawdata)
 
-   res.status(200).send({message: 'Add Success'})
+   res.status(200).send(toptenalbums)
 });
 
 router.delete('/toptenalbums/:id', async (req, res) => {
