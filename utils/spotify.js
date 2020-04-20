@@ -3,7 +3,7 @@ const NodeCache = require('node-cache');
 var myCache = new NodeCache();
 
 async function initialize(spotify) {
-    var accessToken = myCache.get('spotifyAccessToken');
+    let accessToken = myCache.get('spotifyAccessToken');
     if (accessToken === undefined) {
         const result = await spotify.clientCredentialsGrant();
         accessToken = result.body.access_token;
