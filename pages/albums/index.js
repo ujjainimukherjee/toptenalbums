@@ -32,7 +32,7 @@ class Albums extends Component {
             return {
                 albums: json.data.albums,
                 offset: json.data.offset,
-                total: json.data.total,
+                pageCount: json.data.pageCount,
                 query,
                 pathname,
             };
@@ -103,8 +103,8 @@ class Albums extends Component {
                         subContainerClassName={'pages pagination'}
                         initialPage={this.props.currentPage - 1}
                         pageCount={this.props.pageCount}
-                        marginPagesDisplayed={10}
-                        pageRangeDisplayed={10}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
                         onPageChange={this.paginationHandler}
                     />
                 </Grid>
