@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import fetch from 'isomorphic-unfetch';
 import { orderList, deleteItem, setInitialState } from '../redux/actions';
 import TopTen from '../components/TopTen';
 
@@ -19,10 +20,12 @@ class Home extends Component {
         try {
             const res = await fetch('http://localhost:3000/api/toptenalbums');
             const albums = await res.json();
+            console.log('TOP TEN ALBUMS', albums)
             return {
                 albums: albums
             };
         } catch (error) {
+            console.log('TOP TEN ALBUMS ERROR', error)
             return {
                 statusCode: error.response ? error.response.status : 500,
             };
@@ -30,7 +33,6 @@ class Home extends Component {
     }
 
     render() {
-        console.log('TOP[] ', this.props)
         return (
             <TopTen
                 data={this.props.albums.toptenalbums}
