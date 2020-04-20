@@ -17,7 +17,13 @@ I have used React https://ant.design/ library to create an input button to let t
 
 When the user clicks on any album, (s)he is redirected to details page, which shows details of the album. If user clicks on the album, the album starts playing
 
+## Check in as of 04/17/2020
 
+- Finished the final layout of pages
+- Finished UI functionality of adding albums to top ten list. Also within the top ten list, added reordering and delete functionality
+- Added redux support 
+- Created a separate .env file to store spotify credentials
+- Replaced the 'node-spotify-api' library with 'spotify-web-api-node' because the new library works well with pagination
 
 ## Check in as of 04/15/2020
 Implemented the app with Nextjs for server side rendering. This was done using create-next-app command
