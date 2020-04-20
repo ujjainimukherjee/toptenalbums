@@ -8,38 +8,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { orderList, deleteItem, setInitialState } from '../redux/actions';
-import albums from './toptenalbums';
 import TopTen from '../components/TopTen';
 
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            toptenList: this.props.albums
-        };
     }
 
-    componentDidMount() {
-        // initial data needs to be rendered from the server instead of from componentDidMount
-        this.props.setInitialState(albums);
+    static async getInitialProps() {
+        try {
+            const res = await fetch('http://localhost:3000/api/toptenalbums');
+            const albums = await res.json();
+            return {
+                albums: albums
+            };
+        } catch (error) {
+            return {
+                statusCode: error.response ? error.response.status : 500,
+            };
+        }
     }
 
     render() {
+        console.log('TOP[] ', this.props)
         return (
             <TopTen
-                data={this.props.toptenList}
+                data={this.props.albums.toptenalbums}
                 onSortEnd={this.props.orderList}
                 onDelete={this.props.onDelete}
             />
         );
     }
 }
-
-const mapStateToProps = (state) => {
-    return {
-        toptenList: state.toptenList,
-    };
-};
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -55,4 +55,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(null, mapDispatchToProps)(Home);

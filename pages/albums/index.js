@@ -83,7 +83,7 @@ class Albums extends Component {
         });
         //TODO: change this to a dialog box
         if (this.props.error) {
-            // alert(this.props.error)
+            alert(this.props.error)
         }
 
         return (

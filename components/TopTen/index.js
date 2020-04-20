@@ -7,7 +7,7 @@ const TopTen = (props) => {
         <Grid className="topTen__wrapper" container spacing={3}>
             <Grid item xs={12}>
                 <SortableComponent
-                    data={props.data.topTenAlbums}
+                    data={props.data}
                     onSortEnd={props.onSortEnd}
                     onDelete={props.onDelete}
                 />
