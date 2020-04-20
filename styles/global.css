@@ -159,6 +159,7 @@ form.search__form::after {
     align-items: center;
     padding: 0;
     margin-top: 40px;
+    margin-left:80px;
 }
 .pagination li a,
 .pagination li a:hover {
