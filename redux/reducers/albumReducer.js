@@ -1,4 +1,4 @@
-import { SET_INITIAL_STATE, ALBUM_SAVED_ERROR, TOPTENLIST_UPDATED, ALBUM_DELETED } from '../actions';
+import { SET_INITIAL_STATE, ALBUM_ADDED, ALBUM_SAVED_ERROR, TOPTENLIST_UPDATED, ALBUM_DELETED } from '../actions';
 import { arrayMove } from 'react-sortable-hoc';
 import {
     ERROR_MORE_THAN_TEN_RECORDS,
@@ -50,6 +50,7 @@ const albumReducer = (state = initialState, action) => {
                 ),
             };
         case ALBUM_DELETED:
+            console.log(' i ma deleting')
             filteredAlbums = state.topTenAlbums.filter((el) => {
                 if (el.albumId !== action.id) {
                     return el;
