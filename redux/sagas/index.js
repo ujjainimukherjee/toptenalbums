@@ -9,6 +9,20 @@ const headers = {
     'Content-Type': 'application/json',
 };
 
+
+function* loadTopTenAlbums() {
+   try {
+     const json = yield fetch('http://localhost:3000/api/toptenalbums')
+         .then((response) => response.json());
+     yield put({ type: actionTypes.LOAD_ALBUMS_SUCCESS, json });
+   } catch (err) {
+      yield put({ type: actionTypes.ALBUM_SAVED_ERROR, err });
+      console.log(`Error pulling top ten albums  ${err.message}`);
+   }
+ }
+ 
+
+
 function* addAlbumToList(action) {
     const newAlbum = {
         albumId: action.albumId,
@@ -30,14 +44,11 @@ function* addAlbumToList(action) {
 }
 
 function* deleteAlbum(action){
-   console.log('my id is ', action)
-   
    try {
       const json = yield fetch(`${API}/${action.id}`, {
          method : 'DELETE',
          headers,
        }).then(response => response.json());
-       console.log('album d3eleted')
       yield put({ type: actionTypes.ALBUM_DELETED, json });
    } catch(error){
       yield put({ type: actionTypes.ALBUM_SAVED_ERROR, error });
@@ -63,6 +74,11 @@ function* reorderTopTenList(action){
    }
 }
 
+
+function* loadAlbumsDataWatcher() {
+   yield takeLatest(actionTypes.LOAD_ALBUMS, loadTopTenAlbums);
+}
+
 function* addAlbumWatcher() {
     yield takeLatest(actionTypes.ADD_TO_TOPTENLIST, addAlbumToList);
 }
@@ -79,6 +95,7 @@ function* reorderToptenListWatcher(){
 // re order
 export default function* () {
     yield all([
+      loadAlbumsDataWatcher(),
        addAlbumWatcher(),
        deleteAlbumWatcher(),
        reorderToptenListWatcher()

@@ -15,7 +15,8 @@ import { addToTopTenList } from '../../redux/actions';
 import Thumbnail from '../../components/Thumbnail';
 
 class Albums extends Component {
-    static async getInitialProps({ query, pathname }) {
+    static async getInitialProps({ ctx }) {
+        const { query, pathname } = ctx;
         const { searchValue } = query;
         const page = query.page || 1;
         try {
@@ -119,7 +120,7 @@ class Albums extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        error: state.toptenList.error,
+        error: state.topTenAlbums.error,
     };
 };
 

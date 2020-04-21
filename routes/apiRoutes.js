@@ -111,9 +111,6 @@ router.post('/toptenalbums', async (req, res) => {
    let anAlbum = req.body
    anAlbum["order"] = toptenalbums.length + 1
    toptenalbums.push(anAlbum)
-   //toptenalbums.sort((a, b) => parseInt(a.order) - parseInt(b.order))
-   //console.log(toptenalbums)
-
    rawdata = JSON.stringify(toptenalbums, null, 4);
    fs.writeFileSync('./db/toptenalbums.json', rawdata)
 
@@ -128,7 +125,6 @@ router.delete('/toptenalbums/:id', async (req, res) => {
         res.status(400).send({message: 'Empty top ten list'})
         return
     }
-    console.log('INSIDE API ', toptenalbums)
     let filteredAlbums = toptenalbums.filter((el) => {
         if (el.albumId !== req.params.id) {
             return el;

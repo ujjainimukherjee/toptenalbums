@@ -7,35 +7,26 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import fetch from 'isomorphic-unfetch';
-import { orderList, deleteItem, setInitialState } from '../redux/actions';
+import { loadAlbums, orderList, deleteItem } from '../redux/actions';
 import TopTen from '../components/TopTen';
 
 class Home extends Component {
+
     constructor(props) {
         super(props);
     }
 
-    static async getInitialProps() {
-        try {
-            const res = await fetch('http://localhost:3000/api/toptenalbums');
-            const albums = await res.json();
-            console.log('TOP TEN ALBUMS', albums)
-            return {
-                albums: albums
-            };
-        } catch (error) {
-            console.log('TOP TEN ALBUMS ERROR', error)
-            return {
-                statusCode: error.response ? error.response.status : 500,
-            };
-        }
+    static async getInitialProps(props) {
+        const { store , isServer } = props.ctx;
+          store.dispatch(loadAlbums());
+          return { isServer };
     }
 
     render() {
+        console.log(' I AM RENDERTING AGAIN')
         return (
             <TopTen
-                data={this.props.albums.toptenalbums}
+                data={this.props.toptenalbums}
                 onSortEnd={this.props.orderList}
                 onDelete={this.props.onDelete}
             />
@@ -43,11 +34,17 @@ class Home extends Component {
     }
 }
 
+
+
+const mapStateToProps = state => {
+    console.log('MAPPED STATE IS ', state)
+    return {
+        toptenalbums: state.topTenAlbums
+    };
+};
+
 const mapDispatchToProps = (dispatch) => {
     return {
-        setInitialState: albums => {
-            dispatch(setInitialState(albums));
-        },
         orderList: ({ oldIndex, newIndex }) => {
             dispatch(orderList(oldIndex, newIndex));
         },
@@ -57,4 +54,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

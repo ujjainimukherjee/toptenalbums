@@ -7511,6 +7511,11 @@ next-compose-plugins@^2.2.0:
   resolved "https://registry.yarnpkg.com/next-compose-plugins/-/next-compose-plugins-2.2.0.tgz#95cd8eb40ab0652070d76572fb648354191628b0"
   integrity sha512-ChUlpT9tWfJ7YxqGw/WQ2T1gf8EeX93n1XqeQw0lkvGa7seszahvF4eOZUJoq7Hetsbzg4UHVnPoCXfXTyQR3g==
 
+next-redux-saga@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/next-redux-saga/-/next-redux-saga-4.1.2.tgz#adf65cd694deac2514676767d3b733862297db66"
+  integrity sha512-UEI/8bRObquIpHeHX1RuqOFBe2zhI2gTHLijBLiinOZrCbir18B4/lJpymrEoHHpel0iiZEwV4R6jeUWYv+Avw==
+
 next-redux-wrapper@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/next-redux-wrapper/-/next-redux-wrapper-5.0.0.tgz#0f36f94ea00581fbdc94f2405594f6360beb08dc"
