@@ -15,7 +15,8 @@ import { addToTopTenList } from '../../redux/actions';
 import Thumbnail from '../../components/Thumbnail';
 
 class Albums extends Component {
-    static async getInitialProps({ query, pathname }) {
+    static async getInitialProps({ ctx }) {
+        const { query, pathname } = ctx;
         const { searchValue } = query;
         const page = query.page || 1;
         try {
@@ -55,6 +56,10 @@ class Albums extends Component {
     };
 
     render() {
+        //TODO: change this to a dialog box
+        if (this.props.error) {
+            alert(this.props.error);
+        }
         const renderAlbums = this.props.albums.map((item) => {
             return (
                 <li key={item.id}>
@@ -113,6 +118,12 @@ class Albums extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        error: state.topTenAlbums.error,
+    };
+};
+
 const mapDispatchToProps = (dispatch) => {
     return {
         addToList: (albumId, albumName, albumArtist, imageSrc) =>
@@ -131,4 +142,4 @@ Albums.propTypes = {
     pathname: PropTypes.string,
 };
 
-export default connect(null, mapDispatchToProps)(Albums);
+export default connect(mapStateToProps, mapDispatchToProps)(Albums);

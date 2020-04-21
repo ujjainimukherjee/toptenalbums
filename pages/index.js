@@ -1,25 +1,31 @@
+/** Notes:
+ * The top tem albums list should be server side rendered, i.e,
+ * loaded from inside 'getInitialProps'
+ * but load the data from inside 'componentDidMount'
+ * bcz I was having issues with the HTML being rendered by the browser * 
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { orderList, deleteItem, setInitialState } from '../redux/actions';
-import albums from './toptenalbums';
+import { loadAlbums, orderList, deleteItem } from '../redux/actions';
 import TopTen from '../components/TopTen';
 
 class Home extends Component {
+
     constructor(props) {
         super(props);
-        this.state = {
-            toptenList: this.props.albums
-        };
     }
 
-    componentDidMount() {
-        this.props.setInitialState(albums);
+    static async getInitialProps(props) {
+        const { store , isServer } = props.ctx;
+          store.dispatch(loadAlbums());
+          return { isServer };
     }
 
     render() {
         return (
             <TopTen
-                data={this.props.toptenList}
+                data={this.props.toptenalbums}
                 onSortEnd={this.props.orderList}
                 onDelete={this.props.onDelete}
             />
@@ -27,17 +33,16 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+
+
+const mapStateToProps = state => {
     return {
-        toptenList: state.toptenList,
+        toptenalbums: state.topTenAlbums
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setInitialState: (albums) => {
-            dispatch(setInitialState(albums));
-        },
         orderList: ({ oldIndex, newIndex }) => {
             dispatch(orderList(oldIndex, newIndex));
         },
@@ -46,6 +51,5 @@ const mapDispatchToProps = (dispatch) => {
         },
     };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

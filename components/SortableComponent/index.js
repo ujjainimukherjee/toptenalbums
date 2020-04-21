@@ -47,8 +47,8 @@ const SortableComponent = (props) => {
     return (
         <SortableList
             items={props.data}
-            onSortEnd={props.onSortEnd}
             onDelete={props.onDelete}
+            onSortEnd={props.onSortEnd}
             axis="xy"
         />
     );

@@ -92,56 +92,47 @@ router.get('/toptenalbums', async (req, res) => {
     let toptenalbums = JSON.parse(rawdata);
 
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).send(JSON.stringify({toptenalbums}));
+    res.status(200).send(JSON.stringify(toptenalbums));
     res.end();
 });
 
+/**
+ * To add an album to top ten list
+ */
 router.post('/toptenalbums', async (req, res) => {
-   // append to the file & sort the file
    let rawdata = fs.readFileSync('./db/toptenalbums.json');
    let toptenalbums = JSON.parse(rawdata);
    if (toptenalbums.length >= 10) {
        res.status(400).send({message: 'Only ten albums allowed'})
        return
    }
-
    let anAlbum = req.body
    anAlbum["order"] = toptenalbums.length + 1
    toptenalbums.push(anAlbum)
-   console.log(toptenalbums)
-   //toptenalbums.sort((a, b) => parseInt(a.order) - parseInt(b.order))
-   //console.log(toptenalbums)
-
    rawdata = JSON.stringify(toptenalbums, null, 4);
    fs.writeFileSync('./db/toptenalbums.json', rawdata)
-
-   res.status(200).json(req.body)
+   res.status(200).send(req.body)
 });
 
 router.delete('/toptenalbums/:id', async (req, res) => {
-    //
-    let rawdata = fs.readFileSync('../db/toptenalbums.json');
+    let rawdata = fs.readFileSync('./db/toptenalbums.json');
     let toptenalbums = JSON.parse(rawdata);
     if (toptenalbums.length <= 0) {
         res.status(400).send({message: 'Empty top ten list'})
         return
     }
-
-    let filteredAlbums = topTenAlbums.filter((el) => {
+    let filteredAlbums = toptenalbums.filter((el) => {
         if (el.albumId !== req.params.id) {
             return el;
         }
     });
-
     // change the order of the rest of the elements
     filteredAlbums.forEach( (el, idx) => {
-	      el['order'] = idx + 1
+        el['order'] = idx + 1
     })
-
     rawdata = JSON.stringify(filteredAlbums, null, 4);
     fs.writeFileSync('./db/toptenalbums.json', rawdata)
-
-    res.status(200).json({albumId: req.params.id})
+    res.status(200).json({albumId:req.params.id})
 });
 
 module.exports = router;

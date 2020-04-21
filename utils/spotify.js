@@ -20,6 +20,10 @@ const spotify = new SpotifyWebApi({
 
 module.exports = (async function () {
     console.log('Initializing spotify');
-    await initialize(spotify);
+    try {
+        await initialize(spotify);
+    } catch(err){
+        console.log('Spotify initialize error ', err)
+    }
     return { spotify };
 })();
