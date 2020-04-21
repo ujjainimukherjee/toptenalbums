@@ -3,11 +3,17 @@
 **Your app should be server-side rendered and served via a nodeJS server.**
 
 I chose Nextjs as the framework because it provides server side rendering and is widely used by many large companies like Netflix, Uber Marketplace, Audible, etc. So it has been widely tested and there is a lot of community support.
+Some of the important features in Nextjs are
+- Hot Code Reloading
+- Automatic Routing
+- Server Rendering
+- Automatic Code Splitting
+- Single File Components for scoping styles
 
 
 **Your app needs to call the Spotify "search" API endpoint with a query, any valid search term, and display a list of albums, paginated. Albums only**
 
-For the above, I chose https://www.npmjs.com/package/node-spotify-api library because it allows us to do a query to spotify to give album list and details of each album
+For the above, I chose 'spotify-web-api-node' library because it allows us to do a query to spotify to give album list and details of each album and allows pagination
 
 **Your app needs to call the Spotify "search" API endpoint with a query, any valid search term, and display a list of albums, paginated. Albums only**
 
