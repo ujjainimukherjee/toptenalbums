@@ -1,6 +1,5 @@
-// TODO: see how you can handle errors inside the saga
-
 import { put, takeLatest, all, takeEvery } from 'redux-saga/effects';
+import fetch from 'isomorphic-unfetch';
 import * as actionTypes from '../actions';
 
 const API = 'http://localhost:3000/api/toptenalbums';
@@ -20,8 +19,6 @@ function* loadTopTenAlbums() {
       console.log(`Error pulling top ten albums  ${err.message}`);
    }
  }
- 
-
 
 function* addAlbumToList(action) {
     const newAlbum = {

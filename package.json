@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "express": "nodemon server.js",
+    "express": "node server.js",
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .js",

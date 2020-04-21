@@ -23,7 +23,6 @@ class Home extends Component {
     }
 
     render() {
-        console.log(' I AM RENDERTING AGAIN')
         return (
             <TopTen
                 data={this.props.toptenalbums}
@@ -37,7 +36,6 @@ class Home extends Component {
 
 
 const mapStateToProps = state => {
-    console.log('MAPPED STATE IS ', state)
     return {
         toptenalbums: state.topTenAlbums
     };

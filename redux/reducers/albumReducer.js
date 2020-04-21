@@ -1,5 +1,4 @@
 import {
-    SET_INITIAL_STATE,
     ALBUM_ADDED,
     ALBUM_SAVED_ERROR,
     TOPTENLIST_UPDATED,
@@ -71,7 +70,10 @@ const albumReducer = (state = initState, action) => {
                     return el;
                 }
             });
-            return { ...state, topTenAlbums: filteredAlbums };
+            return {
+                ...state,
+                ...{ topTenAlbums: filteredAlbums }
+            };
         case ALBUM_SAVED_ERROR:
             return { ...state, error: action.error };
         default:

@@ -100,25 +100,21 @@ router.get('/toptenalbums', async (req, res) => {
  * To add an album to top ten list
  */
 router.post('/toptenalbums', async (req, res) => {
-   // append to the file & sort the file
    let rawdata = fs.readFileSync('./db/toptenalbums.json');
    let toptenalbums = JSON.parse(rawdata);
    if (toptenalbums.length >= 10) {
        res.status(400).send({message: 'Only ten albums allowed'})
        return
    }
-
    let anAlbum = req.body
    anAlbum["order"] = toptenalbums.length + 1
    toptenalbums.push(anAlbum)
    rawdata = JSON.stringify(toptenalbums, null, 4);
    fs.writeFileSync('./db/toptenalbums.json', rawdata)
-
-   res.status(200).send(toptenalbums)
+   res.status(200).send(req.body)
 });
 
 router.delete('/toptenalbums/:id', async (req, res) => {
-    
     let rawdata = fs.readFileSync('./db/toptenalbums.json');
     let toptenalbums = JSON.parse(rawdata);
     if (toptenalbums.length <= 0) {
@@ -134,11 +130,9 @@ router.delete('/toptenalbums/:id', async (req, res) => {
     filteredAlbums.forEach( (el, idx) => {
         el['order'] = idx + 1
     })
-
     rawdata = JSON.stringify(filteredAlbums, null, 4);
     fs.writeFileSync('./db/toptenalbums.json', rawdata)
-
-    res.status(200).json(filteredAlbums)
+    res.status(200).json({albumId:req.params.id})
 });
 
 module.exports = router;
