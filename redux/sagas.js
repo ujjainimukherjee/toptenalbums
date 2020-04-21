@@ -1,6 +1,6 @@
 import { put, takeLatest, all, takeEvery } from 'redux-saga/effects';
 import fetch from 'isomorphic-unfetch';
-import * as actionTypes from '../actions';
+import * as actionTypes from './actions';
 
 const API = 'http://localhost:3000/api/toptenalbums';
 const headers = {
@@ -16,7 +16,6 @@ function* loadTopTenAlbums() {
         yield put({ type: actionTypes.LOAD_ALBUMS_SUCCESS, json });
     } catch (err) {
         yield put({ type: actionTypes.ALBUM_SAVED_ERROR, err });
-        console.log(`Error pulling top ten albums  ${err.message}`);
     }
 }
 
@@ -36,7 +35,6 @@ function* addAlbumToList(action) {
         yield put({ type: actionTypes.ALBUM_ADDED, json });
     } catch (error) {
         yield put({ type: actionTypes.ALBUM_SAVED_ERROR, error });
-        console.log(`Error adding a new album ${error.message}`);
     }
 }
 
@@ -49,7 +47,6 @@ function* deleteAlbum(action) {
         yield put({ type: actionTypes.ALBUM_DELETED, json });
     } catch (error) {
         yield put({ type: actionTypes.ALBUM_SAVED_ERROR, error });
-        console.log(`Error removing a new album ${error.message}`);
     }
 }
 

@@ -3,7 +3,6 @@ import Link from 'next/link';
 import './header.css';
 
 const Header = () => {
-
     return (
         <nav className="header">
             <ul className="menu">
