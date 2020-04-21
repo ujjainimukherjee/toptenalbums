@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import Table from '@material-ui/core/Table';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
+import Typography from '@material-ui/core/Typography';
 
 const SortableItem = SortableElement((props) => {
     return (
@@ -12,7 +14,12 @@ const SortableItem = SortableElement((props) => {
                 <img alt="album image" src={props.value.imageSrc} />
             </TableCell>
             <TableCell>
-                {props.value.albumName} by {props.value.albumArtist}
+                <Typography variant="subtitle1" gutterBottom>
+                    <strong>{props.value.albumName}</strong>
+                </Typography>
+                <Typography variant="subtitle2" gutterBottom>
+                    {props.value.albumArtist}
+                </Typography>
             </TableCell>
             <TableCell align="right">
                 <button
@@ -52,6 +59,12 @@ const SortableComponent = (props) => {
             axis="xy"
         />
     );
+};
+
+SortableComponent.propTypes = {
+    data: PropTypes.array,
+    onDelete: PropTypes.func,
+    onSortEnd: PropTypes.func
 };
 
 export default SortableComponent;

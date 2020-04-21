@@ -23,7 +23,7 @@ module.exports = (async function () {
     try {
         await initialize(spotify);
     } catch(err){
-        console.log('Spotify initialize error ', err)
+        console.log(`Spotify initialize error ${err}`)
     }
     return { spotify };
 })();

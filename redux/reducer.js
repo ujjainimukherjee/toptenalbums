@@ -1,28 +1,28 @@
+import { arrayMove } from 'react-sortable-hoc';
 import {
     ALBUM_ADDED,
     ALBUM_SAVED_ERROR,
     ORDER_LIST,
     ALBUM_DELETED,
     LOAD_ALBUMS_SUCCESS,
-} from '../actions';
-import { arrayMove } from 'react-sortable-hoc';
+} from './actions';
 import {
     ERROR_MORE_THAN_TEN_RECORDS,
     MAX_NO_ALBUMS,
     ERROR_RECORD_ALREADY_ADDED,
-} from '../../constants';
+} from '../constants';
 
 // const initialState = {
 //     topTenAlbums: [],
 //     error: '',
 // };
 
-export const initState = { 
+export const initState = {
     topTenAlbums: [],
-    error: ''
-  }
+    error: '',
+};
 
-const albumReducer = (state = initState, action) => {
+const rootReducer = (state = initState, action) => {
     let newAlbum;
     let filteredAlbums;
     let albumFound;
@@ -30,7 +30,7 @@ const albumReducer = (state = initState, action) => {
         case LOAD_ALBUMS_SUCCESS:
             return {
                 ...state,
-                ...{ topTenAlbums: action.json }
+                ...{ topTenAlbums: action.json },
             };
         case ALBUM_ADDED:
             // if user tries to add more than 10 albums, throw error
@@ -72,7 +72,7 @@ const albumReducer = (state = initState, action) => {
             });
             return {
                 ...state,
-                ...{ topTenAlbums: filteredAlbums }
+                ...{ topTenAlbums: filteredAlbums },
             };
         case ALBUM_SAVED_ERROR:
             return { ...state, error: action.error };
@@ -81,4 +81,4 @@ const albumReducer = (state = initState, action) => {
     }
 };
 
-export default albumReducer;
+export default rootReducer;

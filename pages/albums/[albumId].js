@@ -36,7 +36,7 @@ const AlbumDetails = ({ album }) => {
     );
 };
 
-AlbumDetails.getInitialProps = async ({ctx}) => {
+AlbumDetails.getInitialProps = async ({ ctx }) => {
     const { query } = ctx;
     try {
         const res = await fetch(

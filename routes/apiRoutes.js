@@ -3,7 +3,7 @@ const router = express.Router();
 const fs = require('fs');
 
 /**
- * formatting search all albums data for use by UI
+ * formatting all albums data
  * @param {*} data
  */
 const formatSearchResponse = (data) => {
@@ -55,7 +55,7 @@ router.get('/SearchAllAlbums', async (req, res) => {
 
     spotify
         .searchAlbums(search, { offset: offset, limit: limit })
-        .then((data) => {
+        .then( data => {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify({ data: formatSearchResponse(data.body) }));
@@ -86,40 +86,44 @@ router.get('/album/:id', async (req, res) => {
         });
 });
 
+/**
+ * get data for top ten albums
+ */
 router.get('/toptenalbums', async (req, res) => {
-    // read the file & return
     const rawdata = fs.readFileSync('./db/toptenalbums.json');
     let toptenalbums = JSON.parse(rawdata);
-
     res.setHeader('Content-Type', 'application/json');
     res.status(200).send(JSON.stringify(toptenalbums));
     res.end();
 });
 
 /**
- * To add an album to top ten list
+ *  add an album to top ten list
  */
 router.post('/toptenalbums', async (req, res) => {
-   let rawdata = fs.readFileSync('./db/toptenalbums.json');
-   let toptenalbums = JSON.parse(rawdata);
-   if (toptenalbums.length >= 10) {
-       res.status(400).send({message: 'Only ten albums allowed'})
-       return
-   }
-   let anAlbum = req.body
-   anAlbum["order"] = toptenalbums.length + 1
-   toptenalbums.push(anAlbum)
-   rawdata = JSON.stringify(toptenalbums, null, 4);
-   fs.writeFileSync('./db/toptenalbums.json', rawdata)
-   res.status(200).send(anAlbum)
+    let rawdata = fs.readFileSync('./db/toptenalbums.json');
+    let toptenalbums = JSON.parse(rawdata);
+    if (toptenalbums.length >= 10) {
+        res.status(400).send({ message: 'Only ten albums allowed' });
+        return;
+    }
+    let anAlbum = req.body;
+    anAlbum['order'] = toptenalbums.length + 1;
+    toptenalbums.push(anAlbum);
+    rawdata = JSON.stringify(toptenalbums, null, 4);
+    fs.writeFileSync('./db/toptenalbums.json', rawdata);
+    res.status(200).send(anAlbum);
 });
 
+/**
+ * delete an album
+ */
 router.delete('/toptenalbums/:id', async (req, res) => {
     let rawdata = fs.readFileSync('./db/toptenalbums.json');
     let toptenalbums = JSON.parse(rawdata);
     if (toptenalbums.length <= 0) {
-        res.status(400).send({message: 'Empty top ten list'})
-        return
+        res.status(400).send({ message: 'Empty top ten list' });
+        return;
     }
     let filteredAlbums = toptenalbums.filter((el) => {
         if (el.albumId !== req.params.id) {
@@ -127,12 +131,12 @@ router.delete('/toptenalbums/:id', async (req, res) => {
         }
     });
     // change the order of the rest of the elements
-    filteredAlbums.forEach( (el, idx) => {
-        el['order'] = idx + 1
-    })
+    filteredAlbums.forEach((el, idx) => {
+        el['order'] = idx + 1;
+    });
     rawdata = JSON.stringify(filteredAlbums, null, 4);
-    fs.writeFileSync('./db/toptenalbums.json', rawdata)
-    res.status(200).json({albumId:req.params.id})
+    fs.writeFileSync('./db/toptenalbums.json', rawdata);
+    res.status(200).json({ albumId: req.params.id });
 });
 
 module.exports = router;

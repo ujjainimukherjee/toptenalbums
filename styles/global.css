@@ -79,9 +79,39 @@ body {
     text-shadow: rgb(225, 226, 237) 0px 1px 0px;
 }
 
+/** Styles for Top Ten albums page */
+
 .topTen__wrapper,
 .search__results__wrapper {
     margin-top: 100px !important;
+}
+
+.topTen__wrapper table {
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.topTen__wrapper table > tbody tr td {
+    color: #808080;
+}
+
+
+
+.topTen__wrapper table  img{
+    flex-shrink: 0;
+	margin: 20px;
+	border: calc(2px + 0.2vw) solid transparent;
+	background-origin: border-box;
+	background-clip: content-box, border-box;
+	background-size: cover;
+	box-sizing: border-box;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 30%;
 }
 
 .search__results__wrapper .page__desc {
