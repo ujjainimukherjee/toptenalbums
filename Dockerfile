@@ -17,4 +17,6 @@ COPY package*.json /app/
 COPY yarn.lock /app/
 COPY *.js /app/
 RUN npm i
+RUN npm run build
+
 			
