@@ -55,6 +55,10 @@ class Albums extends Component {
     };
 
     render() {
+        //TODO: change this to a dialog box
+        if (this.props.error) {
+            alert(this.props.error);
+        }
         const renderAlbums = this.props.albums.map((item) => {
             return (
                 <li key={item.id}>
@@ -81,10 +85,6 @@ class Albums extends Component {
                 </li>
             );
         });
-        //TODO: change this to a dialog box
-        if (this.props.error) {
-            alert(this.props.error)
-        }
 
         return (
             <Grid className="search__results__wrapper" container spacing={3}>
@@ -119,7 +119,7 @@ class Albums extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        error: state.toptenList.error
+        error: state.toptenList.error,
     };
 };
 

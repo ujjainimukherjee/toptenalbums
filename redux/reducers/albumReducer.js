@@ -17,19 +17,21 @@ const albumReducer = (state = initialState, action) => {
     let albumFound;
     switch (action.type) {
         case SET_INITIAL_STATE:
+            console.log('INIT STATE ', { ...state, topTenAlbums: action.albums })
             return { ...state, topTenAlbums: action.albums };
         case ALBUM_ADDED:
             // if user tries to add more than 10 albums, throw error
             if (state.topTenAlbums.length === MAX_NO_ALBUMS) {
                 return { ...state, error: ERROR_MORE_THAN_TEN_RECORDS };
             }
+            // TODO: revisit
             // if user is trying to add the same album twice, throw error
-            albumFound = state.topTenAlbums.find((item) => {
-                return item.albumId === action.albumId;
-            });
-            if (albumFound) {
-                return { ...state, error: ERROR_RECORD_ALREADY_ADDED };
-            }
+            // albumFound = state.topTenAlbums.find((item) => {
+            //     return item.albumId === action.albumId;
+            // });
+            // if (albumFound) {
+            //     return { ...state, error: ERROR_RECORD_ALREADY_ADDED };
+            // }
             newAlbum = {
                 albumId: action.albumId,
                 albumName: action.albumName,
@@ -50,9 +52,8 @@ const albumReducer = (state = initialState, action) => {
                 ),
             };
         case ALBUM_DELETED:
-            console.log(' i ma deleting')
             filteredAlbums = state.topTenAlbums.filter((el) => {
-                if (el.albumId !== action.id) {
+                if (el.albumId !== action.json.albumId) {
                     return el;
                 }
             });

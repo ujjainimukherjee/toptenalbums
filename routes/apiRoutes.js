@@ -92,7 +92,7 @@ router.get('/toptenalbums', async (req, res) => {
     let toptenalbums = JSON.parse(rawdata);
 
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).send(JSON.stringify({toptenalbums}));
+    res.status(200).send(JSON.stringify(toptenalbums));
     res.end();
 });
 
@@ -121,7 +121,7 @@ router.post('/toptenalbums', async (req, res) => {
 });
 
 router.delete('/toptenalbums/:id', async (req, res) => {
-    //
+    
     let rawdata = fs.readFileSync('./db/toptenalbums.json');
     let toptenalbums = JSON.parse(rawdata);
     if (toptenalbums.length <= 0) {
@@ -142,7 +142,7 @@ router.delete('/toptenalbums/:id', async (req, res) => {
     rawdata = JSON.stringify(filteredAlbums, null, 4);
     fs.writeFileSync('./db/toptenalbums.json', rawdata)
 
-    res.status(200).json({albumId: req.params.id})
+    res.status(200).json(filteredAlbums)
 });
 
 module.exports = router;
