@@ -1,7 +1,7 @@
 import {
     ALBUM_ADDED,
     ALBUM_SAVED_ERROR,
-    TOPTENLIST_UPDATED,
+    ORDER_LIST,
     ALBUM_DELETED,
     LOAD_ALBUMS_SUCCESS,
 } from '../actions';
@@ -55,7 +55,7 @@ const albumReducer = (state = initState, action) => {
                 ...state,
                 topTenAlbums: state.topTenAlbums.concat(newAlbum),
             };
-        case TOPTENLIST_UPDATED:
+        case ORDER_LIST:
             return {
                 ...state,
                 topTenAlbums: arrayMove(
