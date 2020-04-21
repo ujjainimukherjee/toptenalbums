@@ -23,12 +23,9 @@ function formatResponse(data){
 export default async (req, res) => {
     const { spotify } = await require('../../utils/spotify');
     const  { search, offset, limit } = req.query;
-    console.log('offset', offset)
-    console.log('limit', limit)
     spotify.searchAlbums(search, {offset:offset, limit:limit})
       .then (data => {
           res.statusCode = 200
-          console.log('backend response ', data)
           res.setHeader('Content-Type', 'application/json')
           res.send(JSON.stringify({ data:formatResponse(data.body)}))
           res.end()

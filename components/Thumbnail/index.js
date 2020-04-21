@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
 
 const Thumbnail = ({ imageUrl, caption, href, as, artist }) => {
     return (
@@ -14,7 +15,12 @@ const Thumbnail = ({ imageUrl, caption, href, as, artist }) => {
                             className="thumbnail__image"
                         />
                         <figcaption className="thumbnail__caption">
-                            <strong>{caption}</strong> by {artist}
+                            <Typography variant="subtitle1" gutterBottom>
+                                <strong>{caption}</strong>
+                            </Typography>
+                            <Typography variant="subtitle2" gutterBottom>
+                                {artist}
+                            </Typography>
                         </figcaption>
                     </figure>
                 </a>
