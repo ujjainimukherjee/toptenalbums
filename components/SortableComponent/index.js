@@ -7,9 +7,9 @@ import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import Typography from '@material-ui/core/Typography';
 
-const SortableItem = SortableElement((props) => {
+const SortableItem = SortableElement( props => {
     return (
-        <TableRow className="sortable__row">
+        <TableRow className="sortable__row" key={`row-${props.albumId}`} >
             <TableCell component="th" scope="row">
                 <img alt="album image" src={props.value.imageSrc} />
             </TableCell>
@@ -33,7 +33,7 @@ const SortableItem = SortableElement((props) => {
     );
 });
 
-const SortableList = SortableContainer((props) => {
+const SortableList = SortableContainer( props => {
     return (
         <Table aria-label="simple table">
             <TableBody>
@@ -50,7 +50,7 @@ const SortableList = SortableContainer((props) => {
     );
 });
 
-const SortableComponent = (props) => {
+const SortableComponent = props => {
     return (
         <SortableList
             items={props.data}
