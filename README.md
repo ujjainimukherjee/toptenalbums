@@ -49,7 +49,12 @@ Set up the initial environment for unit testing using jest
 
 ## Getting Started
 
-First, run the development server:
+In order to run the application on our local, we need to log in to spotify. For that we need the 'client ID' and 'client secret' from spotify API. These may be obtained by logging into spotify and going here - https://developer.spotify.com/dashboard/applications. 
+In my project I have stored these values in an **.env** file at the project root. Please create an '.env' file and store the values like this-
+SPOTIFY_CLIENT_ID=your_id
+SPOTIFY_CLIENT_SECRET=your_secret.
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -58,3 +63,5 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+(Note: if you do not add the client id and client password in the .env file, the project will not run)
