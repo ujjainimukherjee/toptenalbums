@@ -1,0 +1,30 @@
+[
+    {
+        "albumId": "2sBB17RXTamvj7Ncps15AK",
+        "albumName": "lovely (with Khalid)",
+        "albumArtist": "Billie Eilish",
+        "imageSrc": "https://i.scdn.co/image/ab67616d000048518a3f0a3ca7929dea23cd274c",
+        "order": 1
+    },
+    {
+        "albumId": "6BQKvohjflUQTDQJfwge9d",
+        "albumName": "4THEHOMIES",
+        "albumArtist": "Mike Stud",
+        "imageSrc": "https://i.scdn.co/image/ab67616d00004851590bfa926f2e5add1653af8c",
+        "order": 2
+    },
+    {
+        "albumId": "6HiGOyRSF5SiFh5Yv5mEu5",
+        "albumName": "This Isn't The Album",
+        "albumArtist": "Mike Stud",
+        "imageSrc": "https://i.scdn.co/image/ab67616d00004851d924029ec452abb98e7a5612",
+        "order": 3
+    },
+    {
+        "albumId": "7mbTl6QiFejJ5s07soGh7Y",
+        "albumName": "Power Chords",
+        "albumArtist": "Mike Krol",
+        "imageSrc": "https://i.scdn.co/image/ab67616d000048517fb3e77dbf0e6bf1f332945b",
+        "order": 4
+    }
+]

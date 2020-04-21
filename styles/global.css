@@ -1,0 +1,186 @@
+body {
+    background-color: #eaeded;
+}
+
+#pageContent {
+    background-color: #eaeded;
+    margin: 0 auto;
+    min-width: 1000px;
+    height: 100%;
+    overflow: hidden;
+}
+
+#main.album__details__wrapper {
+    background-color: #e9bcb7;
+    background-image: linear-gradient(315deg, #e9bcb7 0%, #29524a 74%);
+    height: 1500px;
+}
+
+#main .desc__wrapper {
+    text-align: center;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+}
+
+#main .desc__wrapper #play__button {
+    display: block;
+    width: 115px;
+    height: 25px;
+    background-color: #89d8d3;
+    background-image: linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%);
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 80px;
+}
+
+.thumbnail a {
+    text-decoration: none;
+}
+
+.thumbnail .thumbnail__caption {
+    padding: 10px;
+    color: #222;
+}
+
+.add__to__list {
+    color: #fff;
+    border-radius: 5px;
+    margin-left: 100px;
+    background-color: #9dc5c3;
+    background-image: linear-gradient(315deg, #9dc5c3 0%, #5e5c5c 74%);
+    height: 25px;
+    width: 100px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.sortable__row {
+    cursor: pointer;
+}
+
+.sortable__row .delete__btn {
+    box-shadow: rgb(137, 149, 153) 3px 4px 0px 0px;
+    background: linear-gradient(rgb(237, 237, 237) 5%, rgb(186, 177, 186) 100%)
+        rgb(237, 237, 237);
+    border-radius: 15px;
+    border: 1px solid rgb(214, 188, 214);
+    display: inline-block;
+    cursor: pointer;
+    color: rgb(58, 138, 158);
+    font-family: Arial;
+    font-size: 12px;
+    padding: 7px 25px;
+    text-decoration: none;
+    text-shadow: rgb(225, 226, 237) 0px 1px 0px;
+}
+
+.topTen__wrapper,
+.search__results__wrapper {
+    margin-top: 100px !important;
+}
+
+.search__results__wrapper .page__desc {
+    text-align: center;
+}
+
+.search__albums__wrapper {
+    margin-top: 100px;
+}
+
+.albums__list .albums__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    grid-row-gap: 30px;
+    list-style-type: none;
+}
+
+.show__details {
+    margin-top: 100px;
+}
+
+/* Styles for Search Component */
+
+form.search__form {
+    width: 600px;
+    margin-top: 120px;
+    margin-left: 50px;
+}
+
+form.search__form input[type='text'] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    font-size: 13px;
+    width: 60%;
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+form.search__form button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background-color: #9dc5c3;
+    background-image: linear-gradient(315deg, #9dc5c3 0%, #5e5c5c 74%);
+    border-radius: 5px;
+    color: white;
+    font-size: 13px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
+
+form.search__form button:hover {
+    background-color: #2f4353;
+    background-image: linear-gradient(315deg, #2f4353 0%, #d2ccc4 74%);
+}
+
+form.search__form::after {
+    content: '';
+    clear: both;
+    display: table;
+}
+
+/** Styles for pagination **/
+.pagination {
+    display: flex;
+    list-style: none;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: fit-content;
+    align-items: center;
+    padding: 0;
+    margin-top: 40px;
+    margin-left:80px;
+}
+.pagination li a,
+.pagination li a:hover {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 10px;
+    cursor: pointer;
+}
+.pagination li.active a {
+    font-weight: bold;
+    text-decoration: underline;
+    pointer-events: none;
+}
+
+.pagination .disabled > a,
+.pagination .disabled > a:focus,
+.pagination .disabled > a:hover,
+  {
+    cursor: not-allowed;
+    color: #777;
+    border-color: #ddd;
+    text-decoration: none;
+}
