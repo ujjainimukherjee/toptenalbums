@@ -111,7 +111,7 @@ router.post('/toptenalbums', async (req, res) => {
    toptenalbums.push(anAlbum)
    rawdata = JSON.stringify(toptenalbums, null, 4);
    fs.writeFileSync('./db/toptenalbums.json', rawdata)
-   res.status(200).send(req.body)
+   res.status(200).send(anAlbum)
 });
 
 router.delete('/toptenalbums/:id', async (req, res) => {
