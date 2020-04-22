@@ -10,8 +10,9 @@ export const ALBUM_ADDED = 'ALBUM_ADDED';
 export const LOAD_ALBUMS = 'LOAD_ALBUMS';
 export const LOAD_ALBUMS_SUCCESS = 'LOAD_ALBUMS_SUCCESS';
 export const LIST_ORDERED_COMPLETED = 'LIST_ORDERED_COMPLETED';
+export const SET_ERROR_FALSE = 'SET_ERROR_FALSE';
 
-export const setInitialState = albums => ({
+export const setInitialState = (albums) => ({
     type: SET_INITIAL_STATE,
     albums,
 });
@@ -30,12 +31,18 @@ export const orderList = (oldIndex, newIndex) => ({
     newIndex,
 });
 
-export const deleteItem = id => ({
+export const deleteItem = (id) => ({
     type: DELETE_ITEM,
     id,
 });
 
-export const albumSavedError = error => {
+export const setErrortoFalse = () => {
+    return {
+        type: SET_ERROR_FALSE,
+    };
+};
+
+export const albumSavedError = (error) => {
     return {
         type: ALBUM_MANIPULATION_ERROR,
         error: error,

@@ -8,9 +8,11 @@ const headers = {
     'Content-Type': 'application/json',
 };
 
+// TODO: add a race so that if the call times out after certain interval error is generated
+
 function* loadTopTenAlbums() {
     try {
-        const json = yield fetch(API).then(response => response.json());
+        const json = yield fetch(API).then((response) => response.json());
         yield put({ type: actionTypes.LOAD_ALBUMS_SUCCESS, json });
     } catch (err) {
         yield put({ type: actionTypes.ALBUM_MANIPULATION_ERROR, err });
@@ -29,7 +31,7 @@ function* addAlbumToList(action) {
             method: 'POST',
             headers,
             body: JSON.stringify(newAlbum),
-        }).then(response => response.json());
+        }).then((response) => response.json());
         yield put({ type: actionTypes.ALBUM_ADDED, json });
     } catch (error) {
         yield put({ type: actionTypes.ALBUM_MANIPULATION_ERROR, error });
@@ -41,21 +43,23 @@ function* deleteAlbum(action) {
         const json = yield fetch(`${API}/${action.id}`, {
             method: 'DELETE',
             headers,
-        }).then(response => response.json());
+        }).then((response) => response.json());
         yield put({ type: actionTypes.ALBUM_DELETED, json });
     } catch (error) {
         yield put({ type: actionTypes.ALBUM_MANIPULATION_ERROR, error });
     }
 }
 
-
 function* reorderAlbums(action) {
     try {
         const json = yield fetch(API, {
             method: 'PUT',
             headers,
-            body: JSON.stringify({oldIndex: action.oldIndex, newIndex: action.newIndex})
-        }).then(response => response.json());
+            body: JSON.stringify({
+                oldIndex: action.oldIndex,
+                newIndex: action.newIndex,
+            }),
+        }).then((response) => response.json());
         yield put({ type: actionTypes.LIST_ORDERED_COMPLETED, json });
     } catch (error) {
         yield put({ type: actionTypes.ALBUM_MANIPULATION_ERROR, error });
@@ -83,6 +87,6 @@ export default function* () {
         loadAlbumsDataWatcher(),
         addAlbumWatcher(),
         deleteAlbumWatcher(),
-        reorderAlbumsWatcher()
+        reorderAlbumsWatcher(),
     ]);
 }
