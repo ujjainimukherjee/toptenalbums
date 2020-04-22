@@ -5,13 +5,8 @@ import {
     LIST_ORDERED_COMPLETED,
     ALBUM_DELETED,
     LOAD_ALBUMS_SUCCESS,
-    ORDER_LIST
+    SET_ERROR_FALSE,
 } from './actions';
-import {
-    ERROR_MORE_THAN_TEN_RECORDS,
-    MAX_NO_ALBUMS,
-    ERROR_RECORD_ALREADY_ADDED,
-} from '../constants';
 
 export const initState = {
     topTenAlbums: [],
@@ -21,26 +16,19 @@ export const initState = {
 const rootReducer = (state = initState, action) => {
     let newAlbum;
     let filteredAlbums;
-    let albumFound;
     switch (action.type) {
         case LOAD_ALBUMS_SUCCESS:
             return {
                 ...state,
                 ...{ topTenAlbums: action.json },
             };
+        case SET_ERROR_FALSE:
+            return { ...state, ...{ error: '' } };
+
         case ALBUM_ADDED:
-            // if user tries to add more than 10 albums, throw error
-            if (state.topTenAlbums.length === MAX_NO_ALBUMS) {
-                return { ...state, error: ERROR_MORE_THAN_TEN_RECORDS };
+            if (action.json.errorMessage) {
+                return { ...state, ...{ error: action.json.errorMessage } };
             }
-            // TODO: revisit
-            // if user is trying to add the same album twice, throw error
-            // albumFound = state.topTenAlbums.find((item) => {
-            //     return item.albumId === action.albumId;
-            // });
-            // if (albumFound) {
-            //     return { ...state, error: ERROR_RECORD_ALREADY_ADDED };
-            // }
             newAlbum = {
                 albumId: action.albumId,
                 albumName: action.albumName,
@@ -54,12 +42,14 @@ const rootReducer = (state = initState, action) => {
         case LIST_ORDERED_COMPLETED:
             return {
                 ...state,
-                ...{ topTenAlbums: arrayMove(
-                    state.topTenAlbums,
-                    action.json.oldIndex,
-                    action.json.newIndex
-                )}
-            }
+                ...{
+                    topTenAlbums: arrayMove(
+                        state.topTenAlbums,
+                        action.json.oldIndex,
+                        action.json.newIndex
+                    ),
+                },
+            };
         case ALBUM_DELETED:
             filteredAlbums = state.topTenAlbums.filter((el) => {
                 if (el.albumId !== action.json.albumId) {
