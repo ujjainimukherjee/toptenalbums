@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import Router from 'next/router';
 import Grid from '@material-ui/core/Grid';
 import ReactPaginate from 'react-paginate';
-import { addToTopTenList } from '../../redux/actions';
+import { addToTopTenList, setErrortoFalse } from '../../redux/actions';
 import Thumbnail from '../../components/Thumbnail';
 
 class Albums extends Component {
@@ -59,6 +59,7 @@ class Albums extends Component {
         //TODO: change this to a dialog box
         if (this.props.error) {
             alert(this.props.error);
+            this.props.setErrortoFalse();
         }
         const renderAlbums = this.props.albums.map((item) => {
             return (
@@ -120,7 +121,7 @@ class Albums extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        error: state.topTenAlbums.error,
+        error: state.error,
     };
 };
 
@@ -130,6 +131,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(
                 addToTopTenList(albumId, albumName, albumArtist, imageSrc)
             ),
+        setErrortoFalse: () => dispatch(setErrortoFalse()),
     };
 };
 
@@ -140,6 +142,9 @@ Albums.propTypes = {
     currentPage: PropTypes.number,
     pageCount: PropTypes.number,
     pathname: PropTypes.string,
+    error: PropTypes.string,
+    addToList: PropTypes.func,
+    setErrortoFalse: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Albums);
