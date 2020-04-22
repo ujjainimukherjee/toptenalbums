@@ -5,10 +5,11 @@ export const DELETE_ITEM = 'DELETE_ITEM';
 export const SET_INITIAL_STATE = 'SET_INITIAL_STATE';
 export const TOPTENLIST_UPDATED = 'TOPTENLIST_UPDATED';
 export const ALBUM_DELETED = 'ALBUM_DELETED';
-export const ALBUM_SAVED_ERROR = 'ALBUM_SAVED_ERROR';
+export const ALBUM_MANIPULATION_ERROR = 'ALBUM_MANIPULATION_ERROR';
 export const ALBUM_ADDED = 'ALBUM_ADDED';
 export const LOAD_ALBUMS = 'LOAD_ALBUMS';
 export const LOAD_ALBUMS_SUCCESS = 'LOAD_ALBUMS_SUCCESS';
+export const LIST_ORDERED_COMPLETED = 'LIST_ORDERED_COMPLETED';
 
 export const setInitialState = albums => ({
     type: SET_INITIAL_STATE,
@@ -36,7 +37,7 @@ export const deleteItem = id => ({
 
 export const albumSavedError = error => {
     return {
-        type: ALBUM_SAVED_ERROR,
+        type: ALBUM_MANIPULATION_ERROR,
         error: error,
     };
 };

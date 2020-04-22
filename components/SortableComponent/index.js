@@ -23,7 +23,7 @@ const SortableItem = SortableElement((props) => {
                     {props.value.albumArtist}
                 </Typography>
             </TableCell>
-            <TableCell align="right">
+            <TableCell align="right" key={`del-${props.albumId}`}>
                 <FontAwesomeIcon
                     icon={faTrash}
                     size="lg"
