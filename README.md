@@ -57,11 +57,9 @@ SPOTIFY_CLIENT_SECRET=your_secret.
 To run the development server, please build first using **npm run build / yarn build**. This will optimize the code and make it faster.
 
 Then, start the development server:
+```
+npm run express
 
-```bash
-npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
