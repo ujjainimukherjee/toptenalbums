@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
+const arrayMove = require('array-move');
 
 /**
  * formatting all albums data
@@ -116,6 +117,18 @@ router.post('/toptenalbums', async (req, res) => {
 });
 
 /**
+ *  reorder albums in top ten list
+ */
+router.put('/toptenalbums', async (req, res) => {
+    let rawdata = fs.readFileSync('./db/toptenalbums.json');
+    let toptenalbums = JSON.parse(rawdata);
+    arrayMove.mutate(toptenalbums, req.body.oldIndex, req.body.newIndex);
+    rawdata = JSON.stringify(toptenalbums, null, 4);
+    fs.writeFileSync('./db/toptenalbums.json', rawdata);
+    res.status(200).send(req.body);
+});
+
+/**
  * delete an album
  */
 router.delete('/toptenalbums/:id', async (req, res) => {
@@ -129,10 +142,6 @@ router.delete('/toptenalbums/:id', async (req, res) => {
         if (el.albumId !== req.params.id) {
             return el;
         }
-    });
-    // change the order of the rest of the elements
-    filteredAlbums.forEach((el, idx) => {
-        el['order'] = idx + 1;
     });
     rawdata = JSON.stringify(filteredAlbums, null, 4);
     fs.writeFileSync('./db/toptenalbums.json', rawdata);

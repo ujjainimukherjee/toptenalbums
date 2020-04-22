@@ -1,21 +1,17 @@
 import { arrayMove } from 'react-sortable-hoc';
 import {
     ALBUM_ADDED,
-    ALBUM_SAVED_ERROR,
-    ORDER_LIST,
+    ALBUM_MANIPULATION_ERROR,
+    LIST_ORDERED_COMPLETED,
     ALBUM_DELETED,
     LOAD_ALBUMS_SUCCESS,
+    ORDER_LIST
 } from './actions';
 import {
     ERROR_MORE_THAN_TEN_RECORDS,
     MAX_NO_ALBUMS,
     ERROR_RECORD_ALREADY_ADDED,
 } from '../constants';
-
-// const initialState = {
-//     topTenAlbums: [],
-//     error: '',
-// };
 
 export const initState = {
     topTenAlbums: [],
@@ -55,15 +51,15 @@ const rootReducer = (state = initState, action) => {
                 ...state,
                 topTenAlbums: state.topTenAlbums.concat(newAlbum),
             };
-        case ORDER_LIST:
+        case LIST_ORDERED_COMPLETED:
             return {
                 ...state,
-                topTenAlbums: arrayMove(
+                ...{ topTenAlbums: arrayMove(
                     state.topTenAlbums,
-                    action.oldIndex,
-                    action.newIndex
-                ),
-            };
+                    action.json.oldIndex,
+                    action.json.newIndex
+                )}
+            }
         case ALBUM_DELETED:
             filteredAlbums = state.topTenAlbums.filter((el) => {
                 if (el.albumId !== action.json.albumId) {
@@ -74,7 +70,7 @@ const rootReducer = (state = initState, action) => {
                 ...state,
                 ...{ topTenAlbums: filteredAlbums },
             };
-        case ALBUM_SAVED_ERROR:
+        case ALBUM_MANIPULATION_ERROR:
             return { ...state, error: action.error };
         default:
             return state;
