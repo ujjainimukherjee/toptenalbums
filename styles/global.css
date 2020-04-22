@@ -100,18 +100,20 @@ body {
     color: #808080;
 }
 
-
-
-.topTen__wrapper table  img{
+.topTen__wrapper table img {
     flex-shrink: 0;
-	margin: 20px;
-	border: calc(2px + 0.2vw) solid transparent;
-	background-origin: border-box;
-	background-clip: content-box, border-box;
-	background-size: cover;
-	box-sizing: border-box;
+    margin: 20px;
+    border: calc(2px + 0.2vw) solid transparent;
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    background-size: cover;
+    box-sizing: border-box;
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
     border-radius: 30%;
+}
+
+.topTen__wrapper .MuiTableCell-alignRight {
+    text-align:center;
 }
 
 .search__results__wrapper .page__desc {
@@ -189,7 +191,7 @@ form.search__form::after {
     align-items: center;
     padding: 0;
     margin-top: 40px;
-    margin-left:80px;
+    margin-left: 80px;
 }
 .pagination li a,
 .pagination li a:hover {
