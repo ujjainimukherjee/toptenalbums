@@ -54,7 +54,9 @@ In my project I have stored these values in an **.env** file at the project root
 SPOTIFY_CLIENT_ID=your_id
 SPOTIFY_CLIENT_SECRET=your_secret.
 
-Then, run the development server:
+To run the development server, please build first using **npm run build / yarn build**. This will optimize the code and make it faster.
+
+Then, start the development server:
 
 ```bash
 npm run dev
