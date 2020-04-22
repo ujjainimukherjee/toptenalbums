@@ -6,10 +6,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import Typography from '@material-ui/core/Typography';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const SortableItem = SortableElement( props => {
+const SortableItem = SortableElement((props) => {
     return (
-        <TableRow className="sortable__row" key={`row-${props.albumId}`} >
+        <TableRow className="sortable__row" key={`row-${props.albumId}`}>
             <TableCell component="th" scope="row">
                 <img alt="album image" src={props.value.imageSrc} />
             </TableCell>
@@ -22,18 +24,20 @@ const SortableItem = SortableElement( props => {
                 </Typography>
             </TableCell>
             <TableCell align="right">
-                <button
-                    className="delete__btn"
+                <FontAwesomeIcon
+                    icon={faTrash}
+                    size="lg"
+                    aria-label="Delete"
+                    className="delete"
+                    color="gray"
                     onClick={() => props.onDelete(props.value.albumId)}
-                >
-                    Del
-                </button>
+                />
             </TableCell>
         </TableRow>
     );
 });
 
-const SortableList = SortableContainer( props => {
+const SortableList = SortableContainer((props) => {
     return (
         <Table aria-label="simple table">
             <TableBody>
@@ -50,9 +54,10 @@ const SortableList = SortableContainer( props => {
     );
 });
 
-const SortableComponent = props => {
+const SortableComponent = (props) => {
     return (
         <SortableList
+            distance={2}
             items={props.data}
             onDelete={props.onDelete}
             onSortEnd={props.onSortEnd}
@@ -64,7 +69,7 @@ const SortableComponent = props => {
 SortableComponent.propTypes = {
     data: PropTypes.array,
     onDelete: PropTypes.func,
-    onSortEnd: PropTypes.func
+    onSortEnd: PropTypes.func,
 };
 
 export default SortableComponent;
