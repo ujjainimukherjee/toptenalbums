@@ -4,6 +4,13 @@
  * may be used
  */
 
+ /**
+  * ITEMS TO DO:
+  * - show dialog when user tries to add more than 10 albums
+  * - show dialog when user is trying to add the same album again
+  * - show notification when user has successfully added an album to the list
+  */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import fetch from 'isomorphic-unfetch';
