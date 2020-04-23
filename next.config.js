@@ -1,6 +1,7 @@
 require('dotenv').config()
 const withPlugins = require('next-compose-plugins');
 const withCSS = require('@zeit/next-css')
+// used to do bundle analysis with nextjs bundle analyzer
 const withBundleAnalyzer = require('@next/bundle-analyzer');
 
 const nextConfig = {
@@ -14,12 +15,10 @@ const nextConfig = {
 
 
 module.exports = withPlugins([
-  withCSS,  
+  withCSS, 
   [withBundleAnalyzer, 
   {
     enabled: process.env.ANALYZE === 'true'
   }
 ]], nextConfig)
 
-// Below code works 
-// module.exports = withBundleAnalyzer(nextConfig)

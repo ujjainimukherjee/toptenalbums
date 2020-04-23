@@ -18,10 +18,12 @@
     "lint:fix": "eslint --fix .  --ext .js",
     "pretty": "prettier --write \"./**/*.{js,jsx}\"",
     "precommit": "NODE_ENV=production lint-staged",
-    "analyze": "cross-env ANALYZE=true yarn build",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "analyze": "cross-env ANALYZE=true next build",
+    "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
+    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
   },
   "dependencies": {
     "@babel/preset-react": "^7.9.4",
