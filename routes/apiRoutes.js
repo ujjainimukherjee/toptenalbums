@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const arrayMove = require('array-move');
+const equal = require('deep-equal');
 
 /**
  * formatting all albums data
@@ -56,7 +57,7 @@ router.get('/SearchAllAlbums', async (req, res) => {
 
     spotify
         .searchAlbums(search, { offset: offset, limit: limit })
-        .then( data => {
+        .then((data) => {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify({ data: formatSearchResponse(data.body) }));
@@ -104,12 +105,25 @@ router.get('/toptenalbums', async (req, res) => {
 router.post('/toptenalbums', async (req, res) => {
     let rawdata = fs.readFileSync('./db/toptenalbums.json');
     let toptenalbums = JSON.parse(rawdata);
+
     if (toptenalbums.length >= 10) {
-        res.status(400).send({ message: 'Only ten albums allowed' });
+        res.status(400).send({
+            errorMessage:
+                'You already have ten albums in your list. Please remove an exiting album to add a new one',
+        });
         return;
     }
     let anAlbum = req.body;
-    anAlbum['order'] = toptenalbums.length + 1;
+
+    const albumFound = toptenalbums.find((item) => {
+        return equal(item, anAlbum);
+    });
+    if (albumFound) {
+        res.status(400).send({
+            errorMessage: 'You have already added the item to the list.',
+        });
+        return;
+    }
     toptenalbums.push(anAlbum);
     rawdata = JSON.stringify(toptenalbums, null, 4);
     fs.writeFileSync('./db/toptenalbums.json', rawdata);
