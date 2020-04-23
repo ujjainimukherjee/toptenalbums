@@ -1,5 +1,7 @@
 import React from 'react';
 import Router from 'next/router';
+import Head from 'next/head';
+
 
 function Search() {
     let textInput = null;
@@ -12,6 +14,7 @@ function Search() {
     };
 
     return (
+        // TODO: validation of input and sanitize the input
         <div className="search__albums__wrapper">
             <form className="search__form">
                 <input

@@ -8,6 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Head from 'next/head';
 import { loadAlbums, orderList, deleteItem } from '../redux/actions';
 import TopTen from '../components/TopTen';
 
@@ -24,11 +25,16 @@ class Home extends Component {
 
     render() {
         return (
-            <TopTen
-                data={this.props.toptenalbums}
-                onSortEnd={this.props.orderList}
-                onDelete={this.props.onDelete}
-            />
+            <>
+                <Head>
+                    <title>Top Ten Albums page</title>
+                </Head>
+                <TopTen
+                    data={this.props.toptenalbums}
+                    onSortEnd={this.props.orderList}
+                    onDelete={this.props.onDelete}
+                />
+            </>
         );
     }
 }
@@ -55,6 +61,5 @@ Home.propTypes = {
     orderList: PropTypes.func,
     onDelete: PropTypes.func,
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
