@@ -53,7 +53,7 @@ const formatAlbumResponse = (data) => {
 router.get('/SearchAllAlbums', async (req, res) => {
     const { spotify } = await require('../utils/spotify');
     const { search, page, limit } = req.query;
-    const offset = page === 'undefined' ? 0 : (page - 1) * 30;
+    const offset = page === undefined ? 0 : (page - 1) * 30;
 
     spotify
         .searchAlbums(search, { offset: offset, limit: limit })
